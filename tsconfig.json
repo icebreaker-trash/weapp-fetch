@@ -26,7 +26,9 @@
     ],
     "types": [
       "@dcloudio/types",
-      "miniprogram-api-typings"
+      "miniprogram-api-typings",
+      "@types/jest",
+      "@types/node"
     ]
   },
   "exclude": [

@@ -41,7 +41,7 @@
   "homepage": "https://github.com/sonofmagic/weapp-fetch#readme",
   "devDependencies": {
     "@dcloudio/types": "^3.2.11",
-    "@icebreakers/eslint-config-ts": "^1.0.2",
+    "@icebreakers/eslint-config-ts": "^1.0.4",
     "@rollup/plugin-alias": "^4.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
