@@ -5,12 +5,17 @@ export type PromiseWithTask = Promise<unknown> & {
 export function createWeappFetch(requestFn: typeof wx.request) {
   return function weappFetch(
     url: string,
-    options: RequestInit &
+    options: Omit<
       WechatMiniprogram.RequestOption<
         string | ArrayBuffer | WechatMiniprogram.IAnyObject
-      >
+      >,
+      'url'
+    > &
+      RequestInit & {
+        getTask?: (task: WechatMiniprogram.RequestTask, options: any) => void
+      } = {}
   ): PromiseWithTask {
-    options = options || {}
+    const opt = options
     const {
       enableCache,
       enableChunked,
@@ -20,16 +25,21 @@ export function createWeappFetch(requestFn: typeof wx.request) {
       forceCellularNetwork,
       httpDNSServiceId,
       timeout,
-      complete
-    } = options
+      complete,
+      getTask,
+      headers,
+      method,
+      body,
+      dataType
+    } = opt
     const promise: PromiseWithTask = new Promise((resolve, reject) => {
-      promise.task = requestFn({
+      const innerOptions: Parameters<typeof requestFn>[0] = {
         url,
-        header: options.headers,
-        method: options.method || ('GET' as const),
+        header: headers,
+        method: method || 'GET',
         // @ts-ignore
-        data: options.body,
-        dataType: options.dataType,
+        data: body,
+        dataType,
         // dataType:options.d
         fail: reject,
         success(response) {
@@ -68,8 +78,9 @@ export function createWeappFetch(requestFn: typeof wx.request) {
         httpDNSServiceId,
         timeout,
         complete
-      })
-
+      }
+      const task = requestFn(innerOptions)
+      getTask?.(task, innerOptions)
       // request.onload = () => {
       //   request
       //     .getAllResponseHeaders()
