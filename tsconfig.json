@@ -23,6 +23,10 @@
         "transform": "typescript-transform-paths",
         "afterDeclarations": true
       }
+    ],
+    "types": [
+      "@dcloudio/types",
+      "miniprogram-api-typings"
     ]
   },
   "exclude": [
