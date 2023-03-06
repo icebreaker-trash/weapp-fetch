@@ -1,7 +1,7 @@
 {
-  "name": "npm-lib-rollup-template",
-  "version": "1.0.0",
-  "description": "npm-lib-rollup-template",
+  "name": "weapp-fetch",
+  "version": "0.0.1",
+  "description": "weapp-fetch",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "types/index.d.ts",
@@ -22,7 +22,7 @@
   "packageManager": "pnpm@7.16.1",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sonofmagic/npm-lib-rollup-template.git"
+    "url": "git+https://github.com/sonofmagic/weapp-fetch.git"
   },
   "files": [
     "dist",
@@ -36,9 +36,9 @@
   "author": "SonOfMagic <qq1324318532@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sonofmagic/npm-lib-rollup-template/issues"
+    "url": "https://github.com/sonofmagic/weapp-fetch/issues"
   },
-  "homepage": "https://github.com/sonofmagic/npm-lib-rollup-template#readme",
+  "homepage": "https://github.com/sonofmagic/weapp-fetch#readme",
   "devDependencies": {
     "@dcloudio/types": "^3.2.11",
     "@icebreakers/eslint-config-ts": "^1.0.2",

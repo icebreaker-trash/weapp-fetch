@@ -1,4 +1,4 @@
-type PromiseWithTask = Promise<unknown> & {
+export type PromiseWithTask = Promise<unknown> & {
   task?: WechatMiniprogram.RequestTask
 }
 
@@ -34,6 +34,9 @@ export function createWeappFetch(requestFn: typeof wx.request) {
         fail: reject,
         success(response) {
           const res = () => ({
+            cookies: response.cookies,
+            profile: response.profile,
+
             ok: ((response.statusCode / 100) | 0) === 2, // 200-299
             statusText: response.errMsg,
             status: response.statusCode,

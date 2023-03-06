@@ -1,26 +1,10 @@
-# npm-lib-rollup-template
+# weapp-fetch (WIP)
 
-本人用于编写的一个 `npm` 包的一个模板
+> 这是一个在小程序中实现 fetch 标准 api 的 npm 包
+## 为什么需要它？
 
-- 使用 `tsc` 或者 `rollup` 打包
-- 使用 `jest` 设置作为单元测试
-- 使用 `eslint` 来规范代码风格，默认风格为 `standard`
-- 输出 `dist` -> `cjs`,`esm` and `.d.ts`
+我想在 `weapp` 环境下，使用现代的 `graphql` 客户端，主要是 `graphql-request` 和 `@apollo/client`
 
-## scripts
+然而，它们都依赖于 `fetch` 这个 api，同时因为含义上传文件部分，它们也都需要 `FormData` 这样的对象
 
-### rename
-
-执行 `npm run init:rename`
- 
-作用为替换 `package.json` 中默认包含的所有名称为 `npm-lib-rollup-template` 的字段
-
-默认替换为新建代码仓库的文件夹名称！
-
-### bin
-
-执行 `npm run init:bin`
- 
-作用为 `package.json`  添加 `files` 和 `bin`，同时生成 `bin/{{pkg.name}}.js` 和 `src/cli.ts` 文件
-
-
+这显然在小程序这个环境下是没有的，所以，我就想着 `fork` 一下 `graphql-request` 做一个阉割版本的，在小程序环境里使用，就这样。
