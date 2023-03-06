@@ -63,7 +63,22 @@ export function createWeappFetch(requestFn: typeof wx.request) {
                   return [x, response.header[x]]
                 }),
               get: (n: string) => response.header[n],
-              has: (n: string) => response.header[n] != null
+              has: (n: string) => response.header[n] != null,
+              forEach: (
+                callbackFn: (
+                  value: string,
+                  key: string,
+                  object: Record<string, string>
+                ) => void
+              ) => {
+                Object.keys(response.header).forEach((key, idx) => {
+                  callbackFn(response.header[key], key, response.header)
+                })
+              },
+              values: () =>
+                Object.keys(response.header).map((x) => {
+                  return response.header[x]
+                })
             }
           })
           resolve(res())
