@@ -1,4 +1,5 @@
 /* eslint-disable no-new */
+// @ts-nocheck
 var global =
   (typeof globalThis !== 'undefined' && globalThis) ||
   (typeof self !== 'undefined' && self) ||
