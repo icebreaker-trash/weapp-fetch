@@ -1,7 +1,7 @@
 {
   "name": "weapp-fetch",
   "version": "0.0.4",
-  "description": "weapp-fetch",
+  "description": "fetch in weapp",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "types/index.d.ts",
@@ -32,7 +32,9 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "keywords": [],
+  "keywords": [
+    "weapp-fetch"
+  ],
   "author": "SonOfMagic <qq1324318532@gmail.com>",
   "license": "MIT",
   "bugs": {
