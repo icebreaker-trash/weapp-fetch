@@ -50,7 +50,7 @@ export function createFetch(
               url: undefined
             }
             options.url = options.headers['X-Request-URL'] || url
-            const body = result.data
+            const body = JSON.stringify(result.data)
             setTimeout(function () {
               // @ts-ignore
               resolve(new Response(body, options))
