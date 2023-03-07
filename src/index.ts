@@ -9,7 +9,7 @@ interface GetTaskOption {
 //   init?: RequestInit
 // ): Promise<Response>
 
-function isObject(o) {
+function isObject(o: any): boolean {
   return Object.prototype.toString.call(o) === '[object Object]'
 }
 
