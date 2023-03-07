@@ -54,6 +54,7 @@
     "@types/lodash": "^4.14.191",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.14.6",
+    "@types/wechat-miniprogram": "^3.4.1",
     "cross-env": "^7.0.3",
     "defu": "^6.1.2",
     "del": "^6.1.1",

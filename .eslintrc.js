@@ -10,6 +10,9 @@ module.exports = {
     my: true
   },
   extends: ['@icebreakers/eslint-config-ts'],
+  rules: {
+    'no-prototype-builtins': 1
+  },
   overrides: [
     {
       files: ['*.ts', '*.mts', '*.cts', '*.tsx'],

@@ -15,6 +15,7 @@ specifiers:
   '@types/lodash': ^4.14.191
   '@types/lodash-es': ^4.17.6
   '@types/node': ^18.14.6
+  '@types/wechat-miniprogram': ^3.4.1
   cross-env: ^7.0.3
   defu: ^6.1.2
   del: ^6.1.1
@@ -50,6 +51,7 @@ devDependencies:
   '@types/lodash': 4.14.191
   '@types/lodash-es': 4.17.6
   '@types/node': 18.14.6
+  '@types/wechat-miniprogram': 3.4.1
   cross-env: 7.0.3
   defu: 6.1.2
   del: 6.1.1
@@ -1097,6 +1099,10 @@ packages:
 
   /@types/stack-utils/2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
+    dev: true
+
+  /@types/wechat-miniprogram/3.4.1:
+    resolution: {integrity: sha512-szbuYR32VotxNQNQ4YyQ6Ob3ya0tLY0zpf/xvi6DF8Oqb+0Y+5CL5BpxS+4wBSJvlu3VfSXhjxZ0ze1a3l16Pw==}
     dev: true
 
   /@types/yargs-parser/21.0.0:
