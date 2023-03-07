@@ -9,6 +9,34 @@ interface GetTaskOption {
 //   init?: RequestInit
 // ): Promise<Response>
 
+function isObject(o) {
+  return Object.prototype.toString.call(o) === '[object Object]'
+}
+
+function isPlainObject(o: any): boolean {
+  let ctor, prot
+
+  if (isObject(o) === false) return false
+
+  // If has modified constructor
+  // eslint-disable-next-line prefer-const
+  ctor = o.constructor
+  if (ctor === undefined) return true
+
+  // If has modified prototype
+  // eslint-disable-next-line prefer-const
+  prot = ctor.prototype
+  if (isObject(prot) === false) return false
+
+  // If constructor does not have an Object-specific method
+  if (prot.hasOwnProperty('isPrototypeOf') === false) {
+    return false
+  }
+
+  // Most likely a plain Object
+  return true
+}
+
 function fixUrl(url: string) {
   try {
     return url === '' && global.location.href ? global.location.href : url
@@ -50,7 +78,13 @@ export function createFetch(
               url: undefined
             }
             options.url = options.headers['X-Request-URL'] || url
-            const body = JSON.stringify(result.data)
+
+            let body = result.data
+
+            if (isPlainObject(result.data)) {
+              body = JSON.stringify(result.data)
+            }
+
             setTimeout(function () {
               // @ts-ignore
               resolve(new Response(body, options))
