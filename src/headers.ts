@@ -1,19 +1,20 @@
 import { normalizeName, normalizeValue, iteratorFor } from './util'
 import support from './support'
+
 export default class Headers {
   public map: Record<string, string>
   constructor(headers: Headers) {
     this.map = {}
     if (headers instanceof Headers) {
-      headers.forEach(function (value, name) {
+      headers.forEach((value, name) => {
         this.append(name, value)
       }, this)
     } else if (Array.isArray(headers)) {
-      headers.forEach(function (header) {
+      headers.forEach((header) => {
         this.append(header[0], header[1])
       }, this)
     } else if (headers) {
-      Object.getOwnPropertyNames(headers).forEach(function (name) {
+      Object.getOwnPropertyNames(headers).forEach((name) => {
         this.append(name, headers[name])
       }, this)
     }
