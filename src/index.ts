@@ -1,61 +1,19 @@
 import { Headers, Request, Response, normalizeValue } from './fetch'
 import { defu } from 'defu'
-
-interface GetTaskOption {
-  getTask?: (task: WechatMiniprogram.RequestTask, options: any) => void
-}
+import { fixUrl, isPlainObject } from './util'
+import { UserDefinedOptions } from './type'
 // declare function fetch(
 //   input: RequestInfo | URL,
 //   init?: RequestInit
 // ): Promise<Response>
 
-function isObject(o: any): boolean {
-  return Object.prototype.toString.call(o) === '[object Object]'
-}
-
-function isPlainObject(o: any): boolean {
-  let ctor, prot
-
-  if (isObject(o) === false) return false
-
-  // If has modified constructor
-  // eslint-disable-next-line prefer-const
-  ctor = o.constructor
-  if (ctor === undefined) return true
-
-  // If has modified prototype
-  // eslint-disable-next-line prefer-const
-  prot = ctor.prototype
-  if (isObject(prot) === false) return false
-
-  // If constructor does not have an Object-specific method
-  if (prot.hasOwnProperty('isPrototypeOf') === false) {
-    return false
-  }
-
-  // Most likely a plain Object
-  return true
-}
-
-function fixUrl(url: string) {
-  try {
-    return url === '' && global.location.href ? global.location.href : url
-  } catch (e) {
-    return url
-  }
-}
-
-export function createFetch(
+function createFetch(
   requestFn: typeof wx.request,
-  defaults?: Partial<
-    RequestInit & WechatMiniprogram.RequestOption & GetTaskOption
-  >
+  defaults?: UserDefinedOptions
 ) {
   return function fetch(
     input: string, // RequestInfo | URL,
-    init?: Partial<
-      RequestInit & WechatMiniprogram.RequestOption & GetTaskOption
-    >
+    init?: UserDefinedOptions
   ): Promise<Response> {
     return new Promise(function (resolve, reject) {
       // @ts-ignore
@@ -173,4 +131,4 @@ export function createFetch(
   }
 }
 
-export { Headers, Request, Response }
+export { Headers, Request, Response, UserDefinedOptions, createFetch }
