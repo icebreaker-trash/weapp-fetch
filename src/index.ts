@@ -2,7 +2,7 @@ import { Headers, Request, Response, normalizeValue } from './fetch'
 import { defu } from 'defu'
 import { fixUrl, isPlainObject } from './util'
 import { UserDefinedOptions } from './type'
-
+// https://github.com/github/fetch
 // declare function fetch(
 //   input: RequestInfo | URL,
 //   init?: RequestInit
@@ -30,102 +30,102 @@ interface OrginResponse extends Body {
   clone(): OrginResponse
 }
 
-type SimpleResponse = {
-  cookies: string[]
-  profile: WechatMiniprogram.RequestProfile
-} & OrginResponse
+// type SimpleResponse = {
+//   cookies: string[]
+//   profile: WechatMiniprogram.RequestProfile
+// } & OrginResponse
 
-function makeSimpleResponse(
-  response: WechatMiniprogram.RequestSuccessCallbackResult<
-    string | WechatMiniprogram.IAnyObject | ArrayBuffer
-  >,
-  options: UserDefinedOptions
-): SimpleResponse {
-  return {
-    cookies: response.cookies,
-    profile: response.profile,
-    ok: ((response.statusCode / 100) | 0) === 2, // 200-299
-    statusText: response.errMsg,
-    status: response.statusCode,
-    url: response.header['X-Request-URL'] || options.url,
-    text: () => Promise.resolve(JSON.stringify(response.data)),
-    json: () => Promise.resolve(response.data),
+// function makeSimpleResponse(
+//   response: WechatMiniprogram.RequestSuccessCallbackResult<
+//     string | WechatMiniprogram.IAnyObject | ArrayBuffer
+//   >,
+//   options: UserDefinedOptions
+// ): SimpleResponse {
+//   return {
+//     cookies: response.cookies,
+//     profile: response.profile,
+//     ok: ((response.statusCode / 100) | 0) === 2, // 200-299
+//     statusText: response.errMsg,
+//     status: response.statusCode,
+//     url: response.header['X-Request-URL'] || options.url,
+//     text: () => Promise.resolve(JSON.stringify(response.data)),
+//     json: () => Promise.resolve(response.data),
 
-    clone: function () {
-      return this
-    },
-    // @ts-ignore
-    headers: new Headers(response.header),
-    /**
-     * @deprecated start
-     */
-    blob: () => Promise.reject(new Error('weapp has no blob object!')),
-    body: null,
-    bodyUsed: false,
-    type: 'basic',
-    redirected: false,
-    formData: () => Promise.reject(new Error('weapp has no formData object!')),
-    // 其实是有的
-    arrayBuffer: () =>
-      Promise.reject(new Error('weapp has no arrayBuffer object!'))
+//     clone: function () {
+//       return this
+//     },
+//     // @ts-ignore
+//     headers: new Headers(response.header),
+//     /**
+//      * @deprecated start
+//      */
+//     blob: () => Promise.reject(new Error('weapp has no blob object!')),
+//     body: null,
+//     bodyUsed: false,
+//     type: 'basic',
+//     redirected: false,
+//     formData: () => Promise.reject(new Error('weapp has no formData object!')),
+//     // 其实是有的
+//     arrayBuffer: () =>
+//       Promise.reject(new Error('weapp has no arrayBuffer object!'))
 
-    /**
-     * @deprecated end
-     */
-  }
-}
+//     /**
+//      * @deprecated end
+//      */
+//   }
+// }
 
-export function createSimpleFetch(
-  requestFn: typeof wx.request,
-  defaults?: UserDefinedOptions
-) {
-  return function simpleFetch(url: string, options: UserDefinedOptions = {}) {
-    const {
-      enableCache,
-      enableChunked,
-      enableHttp2,
-      enableHttpDNS,
-      enableQuic,
-      forceCellularNetwork,
-      httpDNSServiceId,
-      timeout,
-      complete,
-      getTask,
-      headers,
-      method,
-      body,
-      dataType
-    } = defu(options, defaults)
-    const promise = new Promise((resolve, reject) => {
-      const innerOptions: WechatMiniprogram.RequestOption = {
-        url,
-        header: headers,
-        method: method || 'GET',
-        // @ts-ignore
-        data: body,
-        dataType,
-        // dataType:options.d
-        fail: reject,
-        success(response) {
-          resolve(makeSimpleResponse(response, innerOptions))
-        },
-        responseType: options.responseType,
-        enableCache,
-        enableChunked,
-        enableHttp2,
-        enableHttpDNS,
-        enableQuic,
-        forceCellularNetwork,
-        httpDNSServiceId,
-        timeout,
-        complete
-      }
-      const task = requestFn(innerOptions)
-      getTask?.(task, innerOptions)
-    })
-    return promise
-  }
-}
+// export function createSimpleFetch(
+//   requestFn: typeof wx.request,
+//   defaults?: UserDefinedOptions
+// ) {
+//   return function simpleFetch(url: string, options: UserDefinedOptions = {}) {
+//     const {
+//       enableCache,
+//       enableChunked,
+//       enableHttp2,
+//       enableHttpDNS,
+//       enableQuic,
+//       forceCellularNetwork,
+//       httpDNSServiceId,
+//       timeout,
+//       complete,
+//       getTask,
+//       headers,
+//       method,
+//       body,
+//       dataType
+//     } = defu(options, defaults)
+//     const promise = new Promise((resolve, reject) => {
+//       const innerOptions: WechatMiniprogram.RequestOption = {
+//         url,
+//         header: headers,
+//         method: method || 'GET',
+//         // @ts-ignore
+//         data: body,
+//         dataType,
+//         // dataType:options.d
+//         fail: reject,
+//         success(response) {
+//           resolve(makeSimpleResponse(response, innerOptions))
+//         },
+//         responseType: options.responseType,
+//         enableCache,
+//         enableChunked,
+//         enableHttp2,
+//         enableHttpDNS,
+//         enableQuic,
+//         forceCellularNetwork,
+//         httpDNSServiceId,
+//         timeout,
+//         complete
+//       }
+//       const task = requestFn(innerOptions)
+//       getTask?.(task, innerOptions)
+//     })
+//     return promise
+//   }
+// }
 
 function createFetch(
   requestFn: typeof wx.request,
